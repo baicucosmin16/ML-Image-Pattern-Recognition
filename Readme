@@ -1,0 +1,63 @@
+Task 1
+Pentru realizarea task-ului 1 am citit imaginea folosind functia imread.
+Am obtinut sirurile pentru R,G si B folosind o atribuire multipla, functia
+floor pentru partea intreaga, conversia la double si impartind fiecare 
+valoare la (256/count_bins) la care am adaugat 1 deoarece indicii unui
+sir incep de la 1. Pentru a contoriza numarul de valori din fiecare interval,
+am folosit functia accumarray care returneaza un sir care are pe fiecare pozitie
+numarul de elemente din matrice egal cu pozitia elementului din sir.
+Pentru a avea siruri cu count_bins elemente, am completat sirurile pentru R,G si B
+cu zero-uri. In final am concatenat cele 3 siruri intr-un singur sir care este returnat.
+=======================================================================================
+Task 2
+La fel ca si la task-ul 1 am citit imaginea cu imread, am separat matricea trimensionala
+in 3 matrici obisnuite. Am impartit valorile elementelor din matrice la 255, facand si 
+conversie la double. Urmatorul pas a fost sa contruiesc matricile MAX si MIN care iau 
+valorile maxime, respectiv minime dintre cele 3 matrice. Pentru obtinerea elementelor
+matricei H atunci cand d nu este egal cu 0, am adunat 0.0001 deoarece primeam un warning 
+legat de impartirea la 0. In instructiunea for am format cele 3 siruri pentru H,S si V
+in care am contorizat numarul de elemente din matrice care se afla in intervalele delimitate
+de valoarea lui count_bins. Pentru sirul final care se returneaza, am concatenat cele 3 
+siruri obtinute H,S si V.
+========================================================================================
+Task 3
+Functia preprocess incepe prin initializarea unei matrice goale in care se vor pune sirurile
+de caracteristici pentru fiecare imagine. Am declarat 4 variabile pentru a retine caile
+catre directorul care contine pozele cu pisici si pozele fara pisici, dar si calea catre
+fiecare imagine in parte pentru a putea obtine lista cu numele pozelor. Am format doua siruri
+care au numarul de elemente egal cu numarul de poze cu pisici, respectiv numarul de poze fara
+pisici iar fiecare element ia valoare 1, respectiv -1. In functie de string-ul primit ca
+parametru (RGB sau HSV), la matricea X se adauga un rand reprezentand vectorul de caracteristici
+pentru fiecare poza. In final se concateneaza si cele doua siruri cu indicele care indica
+daca poza este cu pisici sau fara (1 sau -1). 
+In functia learn am folosit algoritmul Crout (descompunerea LU) pentru rezolvarea ecuatiei
+care ne va da vectorul care descrie modelul de recunoastere a unei poze cu pisici intr-un set 
+de poze nou. Am incercat mai multi algoritmi pentru rezolvarea ecuatiei (Gram-Schmidt, 
+eliminare gaussina, rezolvarea sistemului cu GaussSiedel) insa, nu am reusit sa obtin o acuratete
+mai mare de 69%. Am verificat si functiile de la celelalte task-uri insa, nu am descoperit greaseala.
+Am testat inversa si cu functia pinv ca sa verific daca algoritmul folosit pentru rezolvarea
+ecuatiei este bun dar, am obtinut aceiasi acuratete.
+==========================================================================================
+Task 4
+In functia evaluate am definit din nou variabile cu caile catre directorul cu poze si 
+calea catre fiecare poza pentru a obtine numarul si numele lor. Am initializat numarul de
+clasificari corecte cu 0. In functie de string-ul primit ca parametru, se vor parcurge pozele 
+cu pisici si fara pisici, se va construit vectorul de caracteristi pentru RGB sau HSV la care se adauga 1 la 
+sfarsit (deoarece numarul de elemente din vectorul x este 3*count_bins iar numarul de elemente din
+w este de 3*count_bins+1 iar inmultirea nu se putea realiza), dupa care se realizeaza inmultirea
+dintre vectorul w si x transpus. Rezultatul este un numar. Daca numarul este mai mare sau egal 
+cu 0 pentru o poza cu pisici sau mai mic decat 0 pentru o poza fara pisici, numarul de clasificari
+corecte este incrementat. In final, pentru obtinerea procentului, se imparte numarul de clasificari
+corecte la numarul total de poze si se inmulteste cu 100.
+
+Timpi obtinuti:
+Task 1: 0.05-0.06 sec
+Task 2: 0.06-0.07 sec
+Task 3 si 4: pentru RGB 2.7-3 sec
+	     pentru HSV 4-4.1
+Acuratete: 69.05% pentru ambele
+
+Multumesc!
+
+
+
